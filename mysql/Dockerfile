@@ -18,4 +18,4 @@ RUN chmod +x /sbin/database.sql
 
 EXPOSE 3306
 
-#CMD ["/bin/bash","/sbin/entrypoint.sh"]
+CMD ["/bin/bash","/sbin/entrypoint.sh"]
