@@ -1,7 +1,5 @@
 FROM ubuntu:16.04
-LABEL maintainer "bruce0205@gmail.com"
-
-USER root
+MAINTAINER "bruce0205@gmail.com"
 
 RUN \
 	apt-get update && \
@@ -11,11 +9,18 @@ RUN \
     sed -i "s/.*bind-address.*/bind-address = 0.0.0.0/" /etc/mysql/mysql.conf.d/mysqld.cnf
 
 
-COPY entrypoint.sh /sbin/entrypoint.sh
-RUN chmod +x /sbin/entrypoint.sh
-COPY database.sql /sbin/database.sql
-RUN chmod +x /sbin/database.sql
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod 755 /entrypoint.sh
+COPY database.sql /database.sql
+RUN chmod 755 /database.sql
 
 EXPOSE 3306
 
-CMD ["/bin/bash","/sbin/entrypoint.sh"]
+#CMD ["/bin/bash","/sbin/entrypoint.sh"]
+#ENTRYPOINT ["/bin/sh","/sbin/entrypoint.sh"]
+
+#ENTRYPOINT ["/sbin/entrypoint.sh"]
+
+#CMD ["/usr/bin/mysqld_safe"]
+
+CMD ["/entrypoint.sh"]
